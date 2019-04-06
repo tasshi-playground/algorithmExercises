@@ -40,10 +40,7 @@ func main() {
 
 	// Print unsorted list
 	fmt.Println("Unsorted list")
-	for node := list; node != nil; node = node.next {
-		fmt.Print(node.value, ",")
-	}
-	fmt.Println()
+	printList(list)
 
 	// sorting
 	sortedList, err := mergeSort(list)
@@ -54,10 +51,7 @@ func main() {
 
 	// Print sorted list
 	fmt.Println("Sorted list")
-	for node := sortedList; node != nil; node = node.next {
-		fmt.Print(node.value, ",")
-	}
-	fmt.Println()
+	printList(sortedList)
 
 }
 
@@ -79,4 +73,11 @@ func mergeOrderByAsc(*Node, *Node) *Node {
 
 func mergeSort(*Node) (*Node, error) {
 	return nil, nil
+}
+
+func printList(list *Node) {
+	for node := list; node != nil; node = node.next {
+		fmt.Print(node.value, ",")
+	}
+	fmt.Println()
 }
