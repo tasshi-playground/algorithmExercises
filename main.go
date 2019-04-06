@@ -63,8 +63,35 @@ func initList(n int) *Node {
 	return list
 }
 
-func divide(*Node) (*Node, *Node) {
-	return nil, nil
+func divide(list *Node) (*Node, *Node) {
+	if list == nil {
+		return nil, nil
+	}
+	middle := list
+	end := list
+	if list != nil {
+		end = list.next
+		if end != nil {
+			end = end.next
+		}
+	} else {
+		return list, nil
+	}
+
+	for {
+		if end == nil {
+			list2 := middle.next
+			middle.next = nil
+			printList(list)
+			printList(list2)
+			return list, list2
+		}
+		middle = middle.next
+		end = end.next
+		if end != nil {
+			end = end.next
+		}
+	}
 }
 
 func mergeOrderByAsc(*Node, *Node) *Node {
