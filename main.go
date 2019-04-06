@@ -3,8 +3,10 @@ package main
 import (
 	"fmt"
 	"log"
+	"math/rand"
 	"os"
 	"strconv"
+	"time"
 )
 
 // Node ...
@@ -33,6 +35,7 @@ func main() {
 	}
 
 	// Initilize list
+	rand.Seed(time.Now().UnixNano())
 	list := initList(n)
 
 	// Print unsorted list
@@ -58,8 +61,12 @@ func main() {
 
 }
 
-func initList(int) *Node {
-	return nil
+func initList(n int) *Node {
+	list := (*Node)(nil)
+	for i := 0; i < n; i++ {
+		list = &Node{value: rand.Intn(2 * n), next: list}
+	}
+	return list
 }
 
 func divide(*Node) (*Node, *Node) {
