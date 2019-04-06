@@ -43,11 +43,7 @@ func main() {
 	printList(list)
 
 	// sorting
-	sortedList, err := mergeSort(list)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+	sortedList := mergeSort(list)
 
 	// Print sorted list
 	fmt.Println("Sorted list")
@@ -82,8 +78,10 @@ func divide(list *Node) (*Node, *Node) {
 		if end == nil {
 			list2 := middle.next
 			middle.next = nil
-			printList(list)
-			printList(list2)
+			// fmt.Print("left :")
+			// printList(list)
+			// fmt.Print("right:")
+			// printList(list2)
 			return list, list2
 		}
 		middle = middle.next
@@ -94,12 +92,46 @@ func divide(list *Node) (*Node, *Node) {
 	}
 }
 
-func mergeOrderByAsc(*Node, *Node) *Node {
-	return nil
-}
+func mergeSort(list *Node) *Node {
+	left, right := divide(list)
+	if left == nil {
+		return right
+	}
+	if right == nil {
+		return left
+	}
+	left = mergeSort(left)
+	right = mergeSort(right)
+	// fmt.Print("left :")
+	// printList(left)
+	// fmt.Print("right:")
+	// printList(right)
 
-func mergeSort(*Node) (*Node, error) {
-	return nil, nil
+	mergedList := &Node{}
+	end := mergedList
+	for {
+		if left == nil {
+			end.next = right
+			// fmt.Print("merge:")
+			// printList(mergedList.next)
+			return mergedList.next
+		}
+		if right == nil {
+			end.next = left
+			// fmt.Print("merge:")
+			// printList(mergedList.next)
+			return mergedList.next
+		}
+		if left.value < right.value {
+			end.next = left
+			end = end.next
+			left = left.next
+		} else {
+			end.next = right
+			end = end.next
+			right = right.next
+		}
+	}
 }
 
 func printList(list *Node) {
