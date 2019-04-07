@@ -13,6 +13,8 @@ func main() {
 	}
 	text := ([]rune)(os.Args[1])
 	pattern := ([]rune)(os.Args[2])
+	fmt.Println("Text:    ", (string)(text))
+	fmt.Println("Pattern: ", (string)(pattern))
 
 	if len(text) < len(pattern) {
 		log.Println("<text> should be longer than <pattern>")
