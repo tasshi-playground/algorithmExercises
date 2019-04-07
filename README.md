@@ -16,6 +16,22 @@ Pattern:  赤い
 Match at: 4
 ```
 
+```bash
+$ ./speedtest.sh
+naive
+
+real    0m0.326s
+user    0m0.259s
+sys     0m0.173s
+
+improved
+
+real    0m0.288s
+user    0m0.236s
+sys     0m0.149s
+```
+
+
 ## License
 
 ### MIT License
