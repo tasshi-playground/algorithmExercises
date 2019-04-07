@@ -9,12 +9,14 @@ import (
 func main() {
 	if len(os.Args) != 3 {
 		log.Println("argument should be <text> <pattern>")
+		return
 	}
 	text := ([]rune)(os.Args[1])
 	pattern := ([]rune)(os.Args[2])
 
 	if len(text) < len(pattern) {
 		log.Println("<text> should be longer than <pattern>")
+		return
 	}
 
 	skipMap := createSkipMap(pattern)
