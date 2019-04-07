@@ -20,11 +20,32 @@ func main() {
 	}
 
 	skipMap := createSkipMap(pattern)
-	fmt.Println("skipMap")
-	for key, val := range skipMap {
-		fmt.Printf("%c: %d\n", key, val)
-	}
+	// fmt.Println("skipMap")
+	// for key, val := range skipMap {
+	// 	fmt.Printf("%c: %d\n", key, val)
+	// }
 
+	for i := 0; len(text)-len(pattern)-i >= 0; {
+		skip := 0
+		for index, word := range pattern {
+			//fmt.Printf("%c, %c\n", word, text[i+index])
+			if word != text[i+index] {
+				if val, ok := skipMap[text[i+len(pattern)-1]]; ok {
+					skip = val
+				} else {
+					skip = len(pattern)
+				}
+				break
+			}
+		}
+		//fmt.Printf("skip: %d\n", skip)
+		if skip == 0 {
+			fmt.Printf("Match at: %d\n", i)
+			return
+		}
+		i = i + skip
+	}
+	fmt.Println("No match")
 }
 
 func createSkipMap(pattern []rune) map[rune]int {
