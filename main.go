@@ -10,8 +10,8 @@ func main() {
 	if len(os.Args) != 3 {
 		log.Println("argument should be <text> <pattern>")
 	}
-	text := os.Args[1]
-	pattern := os.Args[2]
+	text := ([]rune)(os.Args[1])
+	pattern := ([]rune)(os.Args[2])
 
 	if len(text) < len(pattern) {
 		log.Println("<text> should be longer than <pattern>")
@@ -25,7 +25,7 @@ func main() {
 
 }
 
-func createSkipMap(pattern string) map[rune]int {
+func createSkipMap(pattern []rune) map[rune]int {
 	skipMap := make(map[rune]int, len(pattern))
 	for index, word := range pattern {
 		if index != len(pattern)-1 {
