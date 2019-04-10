@@ -67,7 +67,6 @@ func resolveMagicSquare(n int) ([][]int, error) {
 		} else {
 			posY = int(math.Max(float64(posY-1), 0))
 		}
-		fmt.Println(posX)
 		magicSquare[posY][posX] = num
 	}
 
