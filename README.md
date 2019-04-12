@@ -1,4 +1,4 @@
-# magic-square
+# magicSquare
 
 N x N Magic Square (N must be odd number)
 
