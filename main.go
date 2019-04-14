@@ -44,7 +44,7 @@ func main() {
 	printList(list)
 
 	// sorting
-	sortedList := bucketSort(list)
+	sortedList := bucketSort(list, 2*n)
 
 	// Print sorted list
 	fmt.Println("Sorted list")
@@ -60,13 +60,8 @@ func initList(n int) *Node {
 	return list
 }
 
-func bucketSort(list *Node) *Node {
-	max := 0
-	for node := list; node != nil; node = node.next {
-		if node.value > max {
-			max = node.value
-		}
-	}
+func bucketSort(list *Node, max int) *Node {
+
 	table := make([]*Node, max+1)
 	for node := list; node != nil; {
 		nextNode := node.next
