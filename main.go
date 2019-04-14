@@ -41,7 +41,7 @@ func main() {
 	insertRandomValues(&tree, n)
 
 	// Print unsorted list
-	fmt.Println("Tree")
+	fmt.Println("Original Tree")
 	tree.print()
 	fmt.Println()
 
@@ -49,7 +49,7 @@ func main() {
 	searchedNode := tree.search(target)
 
 	// Print search result
-	fmt.Println("Search result")
+	fmt.Println("Searched Tree")
 	if searchedNode == nil {
 		fmt.Println("Not found")
 	} else {
