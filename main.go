@@ -61,25 +61,24 @@ func initList(n int) *Node {
 }
 
 func bucketSort(list *Node) *Node {
-	hashTable := make(map[int]*Node)
 	max := 0
-	for node := list; node != nil; {
-		nextNode := node.next
-		node.next = hashTable[node.value]
-		hashTable[node.value] = node
+	for node := list; node != nil; node = node.next {
 		if node.value > max {
 			max = node.value
 		}
+	}
+	table := make([]*Node, max+1)
+	for node := list; node != nil; {
+		nextNode := node.next
+		node.next = table[node.value]
+		table[node.value] = node
 		node = nextNode
 	}
 
 	sortedList := &Node{}
 	end := sortedList
-	for i := 0; i <= max; i++ {
-		for node, ok := hashTable[i]; node != nil; node = node.next {
-			if !ok {
-				continue
-			}
+	for _, nodes := range table {
+		for node := nodes; node != nil; node = node.next {
 			end.next = node
 			end = node
 		}
