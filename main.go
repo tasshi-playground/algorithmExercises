@@ -24,5 +24,19 @@ type Node struct {
 	value int
 }
 func main() {
+func (tree *Node) insert(value int) {
 
+}
+
+func (tree *Node) insertRandomValues(n int) *Node {
+	return tree
+}
+
+func (tree *Node) print() {
+
+}
+
+func (tree *Node) search(value int) *Node {
+	searchedNode := tree
+	return searchedNode
 }
