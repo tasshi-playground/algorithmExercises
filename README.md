@@ -2,6 +2,17 @@
 
 Bucket sort using linked list written in Golang
 
+## Usage
+
+```bash
+$ go run main.go 20
+N: 20
+Unsorted list
+33,28,22,1,6,35,19,38,11,18,12,27,8,29,22,24,32,30,15,30,
+Sorted list
+1,6,8,11,12,15,18,19,22,22,24,27,28,29,30,30,32,33,35,38,
+```
+
 ## License
 
 ### MIT License
