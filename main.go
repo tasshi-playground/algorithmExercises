@@ -54,8 +54,9 @@ func main() {
 	}
 
 	// Initilize list
+	tree := (*Node)(nil)
 	rand.Seed(time.Now().UnixNano())
-	tree := insertRandomValues(n)
+	tree.insertRandomValues(n)
 
 	// Print unsorted list
 	fmt.Println("Tree")
