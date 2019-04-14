@@ -17,6 +17,12 @@ import (
 	"strconv"
 )
 
+// Node ...
+type Node struct {
+	value int
+	next  *Node
+}
+
 func main() {
 	// Parse arguments
 	n, err := parseArgs(os.Args)
