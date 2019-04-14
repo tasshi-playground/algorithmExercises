@@ -16,6 +16,7 @@ import (
 	"math/rand"
 	"os"
 	"strconv"
+	"sync"
 	"time"
 )
 
@@ -61,8 +62,22 @@ func initList(n int) *Node {
 }
 
 func sleepSort(list *Node) *Node {
+	var wg sync.WaitGroup
+	sortedList := &Node{}
+	end := sortedList
+	for node := list; node != nil; node = node.next {
+		wg.Add(1)
+		go func(value int) {
+			defer wg.Done()
+			time.Sleep((time.Duration)(value) * time.Millisecond)
+			end.next = &Node{value: value, next: nil}
+			end = end.next
+			//fmt.Println(value)
+		}(node.value)
+	}
+	wg.Wait()
 
-	return list
+	return sortedList.next
 }
 
 func printList(list *Node) {
