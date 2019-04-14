@@ -62,19 +62,45 @@ func initList(n int) *Node {
 }
 
 func sleepSort(list *Node) *Node {
-	var wg sync.WaitGroup
 	sortedList := &Node{}
 	end := sortedList
-	for node := list; node != nil; node = node.next {
-		wg.Add(1)
-		go func(value int) {
-			defer wg.Done()
-			time.Sleep((time.Duration)(value) * time.Millisecond)
-			end.next = &Node{value: value, next: nil}
-			end = end.next
-			//fmt.Println(value)
-		}(node.value)
-	}
+
+	// semaphores
+	var wwgg sync.WaitGroup
+	var wg sync.WaitGroup
+	mutex := &sync.RWMutex{}
+	locker := &sync.Mutex{}
+	cond := sync.NewCond(locker)
+
+	wwgg.Add(1)
+	go func() {
+		defer wwgg.Done()
+		for node := list; node != nil; node = node.next {
+			wg.Add(1)
+			wwgg.Add(1)
+			go func(value int) {
+				locker.Lock()
+				defer wg.Done()
+				wwgg.Done()
+				cond.Wait()
+				locker.Unlock()
+
+				time.Sleep((time.Duration)(value) * time.Millisecond)
+
+				mutex.Lock()
+				end.next = &Node{value: value, next: nil}
+				end = end.next
+				mutex.Unlock()
+				//fmt.Println(value)
+			}(node.value)
+		}
+	}()
+
+	//fmt.Println("Wait for make goroutine")
+	wwgg.Wait()
+	//fmt.Println("start goroutine")
+	cond.Broadcast()
+	//fmt.Println("Wait for finish goroutine")
 	wg.Wait()
 
 	return sortedList.next
