@@ -50,6 +50,7 @@ func main() {
 	// Print sorted list
 	fmt.Println("Sorted list")
 	printList(sortedList)
+	ckeckList(sortedList)
 
 }
 
@@ -104,6 +105,18 @@ func sleepSort(list *Node) *Node {
 	wg.Wait()
 
 	return sortedList.next
+}
+
+func ckeckList(list *Node) {
+	prev := list.value
+	for node := list; node != nil; node = node.next {
+		if node.value < prev {
+			fmt.Println("Failed: data reversed!!")
+			return
+		}
+		prev = node.value
+	}
+	fmt.Println("Success: data sorted!!")
 }
 
 func printList(list *Node) {
