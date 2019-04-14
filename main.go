@@ -9,6 +9,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"math/rand"
@@ -26,80 +27,67 @@ type Node struct {
 
 func main() {
 	// Parse arguments
-	if len(os.Args) < 3 {
-		log.Println("Too few arguments")
-		return
-	} else if len(os.Args) > 3 {
-		log.Println("Too much arguments")
-		return
-	}
-	n, err := strconv.Atoi(os.Args[1])
+	n, target, err := parseArgs(os.Args)
 	if err != nil {
 		log.Println(err)
-		return
-	}
-	if n < 1 {
-		fmt.Println("N must be greater than 0")
 		return
 	}
 
-	target, err := strconv.Atoi(os.Args[2])
-	if err != nil {
-		log.Println(err)
-		return
-	}
-	if target < 1 {
-		fmt.Println("TargetValue must be greater than 0")
-		return
-	}
+	fmt.Printf("N: %d, Target: %d\n", n, target)
 
 	// Initilize list
 	tree := (*Node)(nil)
 	rand.Seed(time.Now().UnixNano())
-	tree.insertRandomValues(n)
+	insertRandomValues(&tree, n)
 
 	// Print unsorted list
 	fmt.Println("Tree")
 	tree.print()
+	fmt.Println()
 
 	// searching
-	searchedNode := tree.search(5)
+	searchedNode := tree.search(target)
 
 	// Print search result
 	fmt.Println("Search result")
-	searchedNode.print()
+	if searchedNode == nil {
+		fmt.Println("Not found")
+	} else {
+		searchedNode.print()
+	}
+	fmt.Println()
 
 }
 
-func (tree *Node) insert(value int) {
-	if tree == nil {
-		fmt.Println("Founded nil")
-		tree = &Node{
+func insert(tree **Node, value int) {
+	if *tree == (*Node)(nil) {
+		//fmt.Println("Founded nil")
+		*tree = &Node{
 			value: value,
 			left:  nil,
 			right: nil,
 		}
-		tree.print()
+		//(*tree).print()
 	} else {
-		if value < tree.value {
-			fmt.Println("left")
-			tree.left.insert(value)
+		if value < (*tree).value {
+			//fmt.Println("left")
+			insert(&(*tree).left, value)
 		} else {
-			fmt.Println("right")
-			tree.right.insert(value)
+			//fmt.Println("right")
+			insert(&(*tree).right, value)
 		}
 	}
 }
 
-func (tree *Node) insertRandomValues(n int) {
+func insertRandomValues(tree **Node, n int) {
 	for i := 0; i < n; i++ {
-		tree.insert(rand.Intn(2 * n))
+		insert(tree, rand.Intn(2*n))
 	}
 }
 
 func (tree *Node) print() {
-	if tree == nil {
-		//fmt.Println("Reach to nil")
+	if tree == (*Node)(nil) {
+		fmt.Print("(nil)")
 	} else {
 		fmt.Print(tree.value)
 		tree.left.print()
@@ -108,6 +96,47 @@ func (tree *Node) print() {
 }
 
 func (tree *Node) search(value int) *Node {
-	searchedNode := tree
-	return searchedNode
+	if tree == (*Node)(nil) {
+		return nil
+	}
+	switch {
+	case tree.value == value:
+		return tree
+	case tree.value > value:
+		return tree.left.search(value)
+	case tree.value < value:
+		return tree.right.search(value)
+	}
+	return nil
+}
+
+func parseArgs(args []string) (int, int, error) {
+
+	if len(args) < 3 {
+		err := errors.New("Too few arguments")
+		return 0, 0, err
+	} else if len(args) > 3 {
+		err := errors.New("Too much arguments")
+		return 0, 0, err
+	}
+	n, err := strconv.Atoi(args[1])
+	if err != nil {
+		log.Println(err)
+		return 0, 0, err
+	}
+	if n < 1 {
+		err := errors.New("N must be greater than 0")
+		return 0, 0, err
+	}
+
+	target, err := strconv.Atoi(args[2])
+	if err != nil {
+		log.Println(err)
+		return 0, 0, err
+	}
+	if target < 1 || target >= n {
+		err := errors.New("TargetValue must be greater than 0 and smaller than N")
+		return 0, 0, err
+	}
+	return n, target, nil
 }
