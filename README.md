@@ -2,6 +2,24 @@
 
 Binary search tree program written in Golang
 
+```bash
+$ go run main.go 10 5
+N: 10, Target: 5
+Original Tree
+1817510(nil)(nil)1(nil)3(nil)3(nil)(nil)128(nil)(nil)(nil)(nil)(nil)
+Searched Tree
+510(nil)(nil)1(nil)3(nil)3(nil)(nil)128(nil)(nil)(nil)
+```
+
+```bash
+$ go run main.go 10 5
+N: 10, Target: 5
+Original Tree
+760(nil)1(nil)3(nil)(nil)6(nil)(nil)1410(nil)11(nil)(nil)17(nil)(nil)
+Searched Tree
+Not found
+```
+
 ## License
 
 ### MIT License
