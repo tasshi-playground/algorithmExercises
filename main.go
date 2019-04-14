@@ -13,8 +13,10 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"math/rand"
 	"os"
 	"strconv"
+	"time"
 )
 
 // Node ...
@@ -32,6 +34,41 @@ func main() {
 	}
 
 	fmt.Printf("N: %d\n", n)
+
+	// Initilize list
+	rand.Seed(time.Now().UnixNano())
+	list := initList(n)
+
+	// Print unsorted list
+	fmt.Println("Unsorted list")
+	printList(list)
+
+	// sorting
+	sortedList := bucketSort(list)
+
+	// Print sorted list
+	fmt.Println("Sorted list")
+	printList(sortedList)
+
+}
+
+func initList(n int) *Node {
+	list := (*Node)(nil)
+	for i := 0; i < n; i++ {
+		list = &Node{value: rand.Intn(2 * n), next: list}
+	}
+	return list
+}
+
+func bucketSort(list *Node) *Node {
+	return list
+}
+
+func printList(list *Node) {
+	for node := list; node != nil; node = node.next {
+		fmt.Print(node.value, ",")
+	}
+	fmt.Println()
 }
 
 func parseArgs(args []string) (int, error) {
