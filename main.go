@@ -72,15 +72,39 @@ func main() {
 }
 
 func (tree *Node) insert(value int) {
-
+	if tree == nil {
+		fmt.Println("Founded nil")
+		tree = &Node{
+			value: value,
+			left:  nil,
+			right: nil,
+		}
+		tree.print()
+	} else {
+		if value < tree.value {
+			fmt.Println("left")
+			tree.left.insert(value)
+		} else {
+			fmt.Println("right")
+			tree.right.insert(value)
+		}
+	}
 }
 
-func (tree *Node) insertRandomValues(n int) *Node {
-	return tree
+func (tree *Node) insertRandomValues(n int) {
+	for i := 0; i < n; i++ {
+		tree.insert(rand.Intn(2 * n))
+	}
 }
 
 func (tree *Node) print() {
-
+	if tree == nil {
+		//fmt.Println("Reach to nil")
+	} else {
+		fmt.Print(tree.value)
+		tree.left.print()
+		tree.right.print()
+	}
 }
 
 func (tree *Node) search(value int) *Node {
