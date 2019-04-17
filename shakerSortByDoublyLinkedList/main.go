@@ -66,7 +66,35 @@ func initList(n int) *Node {
 }
 
 func shakerSort(list *Node) *Node {
+	node := list
+	begin := (*Node)(nil)
+	end := (*Node)(nil)
 
+	for {
+		isSorted := true
+		for ; node.next != end; node = node.next {
+			if node.value > node.next.value {
+				isSorted = false
+				swap(&node.value, &node.next.value)
+			}
+		}
+		//printList(list)
+		if isSorted == true {
+			break
+		}
+		end = node
+		for ; node.prev != begin; node = node.prev {
+			if node.prev.value > node.value {
+				isSorted = false
+				swap(&node.value, &node.prev.value)
+			}
+		}
+		begin = node
+		//printList(list)
+		if isSorted == true {
+			break
+		}
+	}
 	return list
 }
 
