@@ -1,6 +1,6 @@
 /*!
  * main.go
- * shakerSortByLinkedList
+ * shakerSortByDoublyLinkedList
  *
  * Copyright (c) 2019 Masaharu TASHIRO
  * Released under the MIT license.

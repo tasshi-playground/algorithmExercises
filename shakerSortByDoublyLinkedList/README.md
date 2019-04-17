@@ -1,6 +1,6 @@
-# shakerSortByLinkedList
+# shakerSortByDoublyLinkedList
 
-Shaker sort using linked list written in Golang
+Shaker sort using doubly linked list written in Golang
 
 ## Usage
 
