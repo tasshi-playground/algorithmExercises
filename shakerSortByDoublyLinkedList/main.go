@@ -44,8 +44,18 @@ func main() {
 	fmt.Println("Unsorted list")
 	printList(list)
 
+	for i := 0; i < n*n/10; i++ {
+		fmt.Print("-")
+	}
+	fmt.Println()
+
 	// sorting
 	sortedList := shakerSort(list)
+
+	for i := 0; i < n*n/10; i++ {
+		fmt.Print("-")
+	}
+	fmt.Println()
 
 	// Print sorted list
 	fmt.Println("Sorted list")
@@ -78,7 +88,7 @@ func shakerSort(list *Node) *Node {
 				swap(&node.value, &node.next.value)
 			}
 		}
-		//printList(list)
+		printList(list)
 		if isSorted == true {
 			break
 		}
@@ -90,7 +100,7 @@ func shakerSort(list *Node) *Node {
 			}
 		}
 		begin = node
-		//printList(list)
+		printList(list)
 		if isSorted == true {
 			break
 		}
