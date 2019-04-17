@@ -54,10 +54,14 @@ func main() {
 }
 
 func initList(n int) *Node {
-	list := (*Node)(nil)
+	list := &Node{}
+	end := list
 	for i := 0; i < n; i++ {
-		list = &Node{value: rand.Intn(2 * n), next: list}
+		end.next = &Node{value: rand.Intn(2 * n), next: nil, prev: end}
+		end = end.next
 	}
+	list = list.next
+	list.prev = nil
 	return list
 }
 
