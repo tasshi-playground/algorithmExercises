@@ -70,6 +70,12 @@ func shakerSort(list *Node) *Node {
 	return list
 }
 
+func swap(x *int, y *int) {
+	*x = *x ^ *y
+	*y = *x ^ *y
+	*x = *x ^ *y
+}
+
 func printList(list *Node) {
 	for node := list; node != nil; node = node.next {
 		fmt.Print(node.value, ",")
